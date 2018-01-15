@@ -11,10 +11,6 @@
 ;;;   Better treatment of physical constants
 ;;;     in TX:/tx/glr/funct/sym/unit.lisp
 
-(eval-when (compile load eval)
-  nil)
-
-
 ;;;; Physical Units
 
 ;;; base units of Si:
@@ -29,31 +25,53 @@
 ;;;          goes uniformly to zero in 1 second)
 ;;; Tesla   (flux density of 1 Weber/square meter)
 
-;;;				MKS		EMU
-;;; magnetizing force	H	A-turns/meter	=Oersteds * 1e3 / (4 pi)
-;;; flux		phi	Weber		=Maxwells * 1e-8
-;;; flux density	B	Weber/sq meter	=Gauss * 1e-4
-;;; permeability	mu	H/m		=Gauss/Oersted *4e-7 * pi
+;;;  MKS  EMU
+;;; magnetizing force  H A-turns/meter =Oersteds * 1e3 / (4 pi)
+;;; flux  phi  Weber   =Maxwells * 1e-8
+;;; flux density B Weber/sq meter  =Gauss * 1e-4
+;;; permeability mu H/m  =Gauss/Oersted *4e-7 * pi
+(in-package :cl-user)
 
-(defmacro defcon (name symbol number . dimensions)
-  `(progn 'compile
-	  (declare (special ,name)
-		   (float ,name))
-	  (setq ,name ,number)))
+(defpackage :clmath.consts
+  (:use :cl)
+  (:export
+   :+c+
+   :+q+
+   :+h+
+   :+N+
+   :+amu+
+   :+me+
+   :+mp+
+   :+phi+
+   :+k+
+   :+gamma+
+   :+mu0+
+   :+epsilon0+))
 
-
+(in-package :clmath.consts)
+
 ;;;; Physical Constants
-
-(defcon velocity-of-light	c	2.9979250e8 meters per second)
-(defcon electronic-charge	q	1.6021917e-19 coulomb)
-(defcon Plancks-constant	h	6.626196e-34 Joule second)
-(defcon Avagadros-number	N	6.022169e26 per K mole)
-(defcon atomic-mass-unit	amu	1.660531e-27 K gram)
-(defcon electron-rest-mass	me	9.109558e-31 K gram)
-(defcon proton-rest-mass	mp	1.672614e-27 K gram)
-(defcon magnetic-flux-quantum	phi	2.067854e-15 Tesla meter meter)
-(defcon Boltzmanns-constant	k	1.380622e-23 Joule per Kelvin)
-(defcon gravitational-constant	gamma	6.6732e-11 Newton (meter 2) per (K gram 2))
-
-(defcon permeability-free-space mu0     (* 4.0 pi 1.0e-7) henry per meter)
-(defcon permittivity-free-space epsilon0 8.854e-12 farads per meter)
+(defconstant +c+ 2.9979250e8
+  "velocity of light, meters per second")
+(defconstant +q+ 1.6021917e-19
+  "electronic-charge, coulomb")
+(defconstant +h+ 6.626196e-34
+  "Plancks-constant, Joule second")
+(defconstant +N+ 6.022169e26
+  "Avagadros-number, per K mole")
+(defconstant +amu+ 1.660531e-27
+  "atomic-mass-unit, K gram")
+(defconstant +me+ 9.109558e-31
+  "electron-rest-mass, K gram")
+(defconstant +mp+ 1.672614e-27
+  "proton-rest-mass, K gram")
+(defconstant +phi+ 2.067854e-15
+  "magnetic-flux-quantum, Tesla meter meter")
+(defconstant +k+ 1.380622e-23
+  "Boltzmanns-constant, Joule per Kelvin")
+(defconstant +gamma+ 6.6732e-11
+  "gravitational-constant, Newton (meter 2) per (K gram 2)")
+(defconstant +mu0+ (* 4.0 pi 1.0e-7)
+  "permeability-free-space, henry per meter")
+(defconstant +epsilon0+ 8.854e-12
+  "permittivity-free-space, farads per meter")

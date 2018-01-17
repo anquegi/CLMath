@@ -1,4 +1,4 @@
-;;; -*- Mode: LISP; Syntax: Common-lisp; Package: USER -*-
+;;; -*- Mode: LISP; Syntax: Common-lisp; Package: clmath.horner -*-
 
 ;;;; Horner's Rule
 
